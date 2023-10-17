@@ -1,0 +1,16 @@
+--extra-index-url https://__token__:${GITLAB_PIP_TOKEN}@gitlab.com/api/v4/projects/31787221/packages/pypi/simple
+docserverlib
+requests
+fastapi
+uvicorn
+pydantic
+httpx
+pandas
+python-dotenv
+aiohttp
+async_timeout
+azure-storage-blob
+pymongo
+redis
+protobuf==3.19.0
+moviepy

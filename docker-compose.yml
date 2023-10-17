@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  redis:
+    container_name: redis-cont
+    image: "redis:alpine"
+    environment:
+      - REDIS_PASSWORD=ubuntu
+      - REDIS_REPLICATION_MODE=master
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis-data:/data
+    command:
+      - "--save 10 100"
+      - "--requirepass ubuntu"
+
+  redisinsight:
+    container_name: redisinsight-cont
+    image: redislabs/redisinsight
+    ports:
+      - 8001:8001
+    volumes:
+      - redisinsight:/db
+
+  attachment_service:
+    init: true
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        GITLAB_PIP_TOKEN: glpat-3b-3dqZJi6HvyoWUDEjK
+    ports:
+      - "3000:3000"
+    environment:
+      - "MONGO_HOST=host.docker.internal"
+
+volumes:
+  redis-data:
+  redisinsight:
